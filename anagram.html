@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anagram</title>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header></header>
+    <h1 style="text-transform: uppercase; text-align: center">
+      Simple Anagram Program
+    </h1>
+
+    <h2 style="text-align: center">
+      Result:
+      <span
+        id="result"
+        style="color: darkmagenta; text-transform: capitalize"
+      ></span>
+    </h2>
+
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        gap: 10px 10px;
+        margin-top: 10px;
+      "
+    >
+      <label>Text 1</label>
+      <input
+        id="inputOne"
+        type="text"
+        placeholder="Enter text"
+        style="height: 30px; padding: 0px 10px"
+        required
+      />
+    </div>
+
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        gap: 10px 10px;
+        margin-top: 10px;
+      "
+    >
+      <label>Text 2</label>
+      <input
+        id="inputTwo"
+        type="text"
+        placeholder="Enter text"
+        style="height: 30px; padding: 0px 10px"
+        required
+      />
+    </div>
+
+    <button
+      onclick="anagram()"
+      class="start"
+      style="
+        margin-top: 10px;
+        background-color: cadetblue;
+        color: white;
+        height: 30px;
+        border: none;
+        border-radius: 10px;
+        width: 100%;
+        cursor: pointer;
+        font-size: medium;
+      "
+    >
+      IsAnagram ?
+    </button>
+
+    <footer
+      style="
+        text-align: center;
+        font-size: smaller;
+        text-transform: capitalize;
+        margin-top: 30px;
+      "
+    >
+      by zr codes
+    </footer>
+
+    <script>
+      //write a function to check if two strings are anagrams of each other. An anagram of a string is another string that contains the same characters, only the order of characters can be different. For example, CBDA is an anagram of ABCD.
+
+      const resultShower = document.getElementById("result");
+
+      function checkCharaters(array1, array2) {
+        const runCheck = array1.map((character) => {
+          if (array2.includes(character)) {
+            return true;
+          } else return false;
+        });
+        return runCheck;
+      }
+
+      function anagram() {
+        //get the value of the input elements.
+        const string1 = document.getElementById("inputOne").value;
+        const string2 = document.getElementById("inputTwo").value;
+
+        if (string1 !== "" && string2 !== "") {
+          //ensure what is passed is converted to strings render it case insensitive.
+          const str1 = string1.toString().toLowerCase();
+          const str2 = string2.toString().toLowerCase();
+
+          //split every character in the strings.
+          const strOneCharacters = str1.split("", str1.length);
+          const strTwoCharacters = str2.split("", str2.length);
+
+          //iterate through every character of the first string and check if it is in (test against) the second string. Convert to arr of T/F.
+          const strOneValueArr = checkCharaters(
+            strOneCharacters,
+            strTwoCharacters
+          );
+
+          //iterate through every character of the second string and check if it is in (test against) the first string. Convert to arr of T/F.
+          const strTwoValueArr = checkCharaters(
+            strTwoCharacters,
+            strOneCharacters
+          );
+
+          //if any of the value arrays include false, return false.
+          if (
+            strOneValueArr.includes(false) ||
+            strTwoValueArr.includes(false)
+          ) {
+            return (resultShower.textContent = false);
+          }
+
+          //else return true;
+          return (resultShower.textContent = true);
+        }
+
+        return resultShower.textContent = "Empty field(s)."
+      }
+    </script>
+  </body>
+</html>
